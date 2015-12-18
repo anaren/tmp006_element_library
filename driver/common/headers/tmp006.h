@@ -30,17 +30,14 @@
 
 #include "../i2c/i2c.h"
 #include "tmp006_config.h"
-#include "types.h"
-
-#define uint8 UINT8
-#define uint16 UINT16
+#include <stdint.h>
 
 //------------------------------------------------------------------------------
 /**
  *  Defines, enumerations, and structure definitions
  */
 #ifndef bool
-#define bool uint8
+#define bool uint8_t
 #endif
 
 #ifndef true
@@ -117,7 +114,7 @@ result in undesireable behavior.
 @param addr device register address
 @param data data to be written to the specified register address
 */
-void TMP006_WriteReg(uint8 id, uint8 addr, uint16 data);
+void TMP006_WriteReg(uint8_t id, uint8_t addr, uint16_t data);
 
 /** 
 Read a 16-bit value from a device register.
@@ -125,7 +122,7 @@ Read a 16-bit value from a device register.
 @param addr device register address
 @return data read from the specified register address
 */
-uint16 TMP006_ReadReg(uint8 id, uint8 addr);
+uint16_t TMP006_ReadReg(uint8_t id, uint8_t addr);
 
 /**
 Issue a software reset to the sensor.
@@ -133,7 +130,7 @@ Issue a software reset to the sensor.
 @note This is a self-clearing operation.  There is no need for software to clear
 the reset condition.
 */
-void TMP006_SoftwareReset(uint8 id);
+void TMP006_SoftwareReset(uint8_t id);
 
 /**
 Select the device operating mode.  Refer to eTMP006Mode definition for details
@@ -141,7 +138,7 @@ regarding the allowed states.
 @param id device ID (0 to 7) on i2c bus
 @param mode specifies the device mode of operation
 */
-void TMP006_SetOperatingMode(uint8 id, enum eTMP006Mode mode);
+void TMP006_SetOperatingMode(uint8_t id, enum eTMP006Mode mode);
 
 /**
 Read the currently selected operating mode.  Refer to eTMP006Mode definition for
@@ -149,7 +146,7 @@ details regarding the available states.
 @param id device ID (0 to 7) on i2c bus
 @return device mode of operation
 */
-enum eTMP006Mode TMP006_GetOperatingMode(uint8 id);
+enum eTMP006Mode TMP006_GetOperatingMode(uint8_t id);
 
 /**
 Select the device conversion rate.  Refer to eTMP006Rate definition for details
@@ -157,7 +154,7 @@ regarding the allowed rates.
 @param id device ID (0 to 7) on i2c bus
 @param rate specifies the conversion rate
 */
-void TMP006_SetConversionRate(uint8 id, enum eTMP006Rate rate);
+void TMP006_SetConversionRate(uint8_t id, enum eTMP006Rate rate);
 
 /**
 Read the currently selected conversion rate.  Refer to eTMP006Rate definition
@@ -165,27 +162,27 @@ for details regarding the available rates.
 @param id device ID (0 to 7) on i2c bus
 @return device conversion rate
 */
-enum eTMP006Rate TMP006_GetConversionRate(uint8 id);
+enum eTMP006Rate TMP006_GetConversionRate(uint8_t id);
 
 /**
 Enable/disable the device DRDY output pin.
 @param id device ID (0 to 7) on i2c bus
 @param en true enables the pin output, false disables the output
 */
-void TMP006_SetDataReadyEnable(uint8 id, bool en);
+void TMP006_SetDataReadyEnable(uint8_t id, bool en);
 
 /**
 Read the state of the DRDY enable bit in the Configuration register.
 @param id device ID (0 to 7) on i2c bus
 @return true when the DRDY is enabled, otherwise false
 */
-bool TMP006_GetDataReadyEnable(uint8 id);
+bool TMP006_GetDataReadyEnable(uint8_t id);
 
 /**
 Clear the DRDY ready status bit in the Configuration register.
 @param id device ID (0 to 7) on i2c bus
 */
-void TMP006_ClearDataReadyStatus(uint8 id);
+void TMP006_ClearDataReadyStatus(uint8_t id);
 
 /**
 Read the state of the DRDY status bit in the Configuration register.  The DRDY
@@ -197,7 +194,7 @@ writing to the Configuration register or calling TMP006ClearDataReadyStatus().
 @param id device ID (0 to 7) on i2c bus
 @return true when conversion results are ready to read, otherwise false
 */
-bool TMP006_GetDataReadyStatus(uint8 id);
+bool TMP006_GetDataReadyStatus(uint8_t id);
 
 /**
 Read the ambient (die) temperature.  When set to Continuous Conversion mode, the
@@ -206,7 +203,7 @@ function calulates the temperature using only the most recent conversion value.
 @param id device ID (0 to 7) on i2c bus
 @return temperature of the TMP006 die in Celsius
 */
-float TMP006_GetAmbientTemperature(uint8 id);
+float TMP006_GetAmbientTemperature(uint8_t id);
 
 /**
 Read the temperature of an object.  When set to Continuous Conversion mode, the
@@ -216,7 +213,7 @@ values for die temperature and sensor voltage.
 @param id device ID (0 to 7) on i2c bus
 @return temperature of an object in Celsius
 */
-float TMP006_GetObjectTemperature(uint8 id);
+float TMP006_GetObjectTemperature(uint8_t id);
 
 /**
 Read the temperature of an object.  When set to Continuous Conversion mode, the
@@ -234,21 +231,21 @@ utilization is reduced.
 @param tDie pointer to array of 4 tDie values
 @return temperature of an object in Celsius
 */
-float TMP006_GetObjectTemperatureWithTransientCorrection(uint8 id, float *tDie);
+float TMP006_GetObjectTemperatureWithTransientCorrection(uint8_t id, float *tDie);
 
 /**
 Read the Manufacturer ID register.
 @param id device ID (0 to 7) on i2c bus
 @return contents of the Manufacturer ID register.  Value always = 0x5449.
 */
-uint16 TMP006_GetMfgId(uint8 id);
+uint16_t TMP006_GetMfgId(uint8_t id);
 
 /**
 Read the Device ID register.
 @param id device ID (0 to 7) on i2c bus
 @return contents of the Device ID register.  Value always = 0x0067.
 */
-uint16 TMP006_GetDeviceId(uint8 id);
+uint16_t TMP006_GetDeviceId(uint8_t id);
 
 
 #endif  /* TMP006_H */

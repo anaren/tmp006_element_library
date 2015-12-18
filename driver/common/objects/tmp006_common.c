@@ -94,9 +94,9 @@ static float TMP006_CalculateTemperature(const float *tDie, const float *vObj)
  *  Public interface
  */
 
-void TMP006_WriteReg(uint8 id, uint8 addr, uint16 data)
+void TMP006_WriteReg(uint8_t id, uint8_t addr, uint16_t data)
 {
-  uint8 writeBytes[3];
+  uint8_t writeBytes[3];
 
   writeBytes[0] = addr;
   writeBytes[1] = data >> 8;
@@ -104,11 +104,11 @@ void TMP006_WriteReg(uint8 id, uint8 addr, uint16 data)
   AIR_I2C_Write(TMP006_SLAVE_BASE_ADDR + id, writeBytes, 3);
 }
 
-uint16 TMP006_ReadReg(uint8 id, uint8 addr)
+uint16_t TMP006_ReadReg(uint8_t id, uint8_t addr)
 {
-  uint8 writeBytes[1];
-  uint8 readBytes[2];
-  uint16 readData;
+  uint8_t writeBytes[1];
+  uint8_t readBytes[2];
+  uint16_t readData;
 
   writeBytes[0] = addr;
   AIR_I2C_ComboRead(TMP006_SLAVE_BASE_ADDR + id, writeBytes, 1, readBytes, 2);
@@ -117,74 +117,74 @@ uint16 TMP006_ReadReg(uint8 id, uint8 addr)
   return readData;
 }
 
-void TMP006_SoftwareReset(uint8 id)
+void TMP006_SoftwareReset(uint8_t id)
 {
   TMP006_WriteReg(id, TMP006_CONFIG_REG_ADDR, TMP006_CONFIG_REG_RST);
 }
 
-void TMP006_SetOperatingMode(uint8 id, enum eTMP006Mode mode)
+void TMP006_SetOperatingMode(uint8_t id, enum eTMP006Mode mode)
 {
-  uint16 data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
+  uint16_t data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
 
   data &= ~TMP006_CONFIG_REG_MOD;
-  data |= (uint16)mode;
+  data |= (uint16_t)mode;
   TMP006_WriteReg(id, TMP006_CONFIG_REG_ADDR, data);
 }
 
-enum eTMP006Mode TMP006_GetOperatingMode(uint8 id)
+enum eTMP006Mode TMP006_GetOperatingMode(uint8_t id)
 {
   return (enum eTMP006Mode)(TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR) & TMP006_CONFIG_REG_MOD);
 }
 
-void TMP006_SetConversionRate(uint8 id, enum eTMP006Rate rate)
+void TMP006_SetConversionRate(uint8_t id, enum eTMP006Rate rate)
 {
-  uint16 data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
+  uint16_t data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
 
   data &= ~TMP006_CONFIG_REG_CR;
   data |= (UINT16)rate;
   TMP006_WriteReg(id, TMP006_CONFIG_REG_ADDR, data);
 }
 
-enum eTMP006Rate TMP006_GetConversionRate(uint8 id)
+enum eTMP006Rate TMP006_GetConversionRate(uint8_t id)
 {
   return (enum eTMP006Rate)(TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR) & TMP006_CONFIG_REG_CR);
 }
 
-void TMP006_SetDataReadyEnable(uint8 id, bool en)
+void TMP006_SetDataReadyEnable(uint8_t id, bool en)
 {
-  uint16 data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
+  uint16_t data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
 
   data &= ~TMP006_CONFIG_REG_EN;
   if (en) data |= TMP006_CONFIG_REG_EN;
   TMP006_WriteReg(id, TMP006_CONFIG_REG_ADDR, data);
 }
 
-bool TMP006_GetDataReadyEnable(uint8 id)
+bool TMP006_GetDataReadyEnable(uint8_t id)
 {
   return (TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR) & TMP006_CONFIG_REG_EN) ? true : false;
 }
 
-void TMP006_ClearDataReadyStatus(uint8 id)
+void TMP006_ClearDataReadyStatus(uint8_t id)
 {
-  uint16 data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
+  uint16_t data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
 
   data &= ~TMP006_CONFIG_REG_DRDY;
   TMP006_WriteReg(id, TMP006_CONFIG_REG_ADDR, data);
 }
 
-bool TMP006_GetDataReadyStatus(uint8 id)
+bool TMP006_GetDataReadyStatus(uint8_t id)
 {
   return (TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR) & TMP006_CONFIG_REG_DRDY) ? true : false;
 }
 
-float TMP006_GetAmbientTemperature(uint8 id)
+float TMP006_GetAmbientTemperature(uint8_t id)
 {
   int16 tDieRaw = (int16)TMP006_ReadReg(id, TMP006_TAMBIENT_REG_ADDR);
 
   return (((float)(tDieRaw >> 2)) * (float)0.03125);
 }
 
-float TMP006_GetObjectTemperature(uint8 id)
+float TMP006_GetObjectTemperature(uint8_t id)
 {
   float tDie = TMP006_GetAmbientTemperature(id) + (float)273.15;
   int16 vObjRaw = (int16)TMP006_ReadReg(id, TMP006_VOBJECT_REG_ADDR);
@@ -193,7 +193,7 @@ float TMP006_GetObjectTemperature(uint8 id)
   return TMP006_CalculateTemperature(&tDie, &vObj);
 }
 
-float TMP006_GetObjectTemperatureWithTransientCorrection(uint8 id, float *tDie)
+float TMP006_GetObjectTemperatureWithTransientCorrection(uint8_t id, float *tDie)
 {
   int16 vObjRaw = (int16)TMP006_ReadReg(id, TMP006_VOBJECT_REG_ADDR);
   float tSlope;
@@ -209,12 +209,12 @@ float TMP006_GetObjectTemperatureWithTransientCorrection(uint8 id, float *tDie)
   return TMP006_CalculateTemperature(&tDie[3], &vObjCorr);
 }
 
-uint16 TMP006_GetMfgId(uint8 id)
+uint16_t TMP006_GetMfgId(uint8_t id)
 {
   return TMP006_ReadReg(id, TMP006_MFG_ID_REG_ADDR);
 }
 
-uint16 TMP006_GetDeviceId(uint8 id)
+uint16_t TMP006_GetDeviceId(uint8_t id)
 {
   return TMP006_ReadReg(id, TMP006_DEVICE_ID_REG_ADDR);
 }
