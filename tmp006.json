@@ -46,5 +46,12 @@
 		}
 	},
 	
-	"categories":["Temperature", "Sensor"]
+	"categories":["Temperature", "Sensor"],
+	
+	
+	"links":{
+		"Product Page":"http://www.ti.com/product/TMP006",
+		"Datasheet":"http://www.ti.com/product/TMP006/datasheet",
+		"Wiki Page":"https://atmosphere.anaren.com/wiki/TMP006_Driver"
+	},
 }
