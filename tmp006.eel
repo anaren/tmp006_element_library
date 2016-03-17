@@ -56,6 +56,11 @@
             "label": "TMP006 Driver"
         }
     },
+    "links": {
+        "Datasheet": "http://www.ti.com/product/TMP006/datasheet",
+        "Product Page": "http://www.ti.com/product/TMP006",
+        "Wiki Page": "https://atmosphere.anaren.com/wiki/TMP006_Driver"
+    },
     "manufacturer": "Texas Instruments",
     "name": "tmp006",
     "signature": "",
