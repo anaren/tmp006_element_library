@@ -106,9 +106,9 @@ void TMP006_WriteReg(uint8_t id, uint8_t addr, uint16_t data)
 
 uint16_t TMP006_ReadReg(uint8_t id, uint8_t addr)
 {
-  uint8_t writeBytes[1];
-  uint8_t readBytes[2];
-  uint16_t readData;
+  uint8_t writeBytes[1] = {0};
+  uint8_t readBytes[2] = {0};
+  uint16_t readData = 0;
 
   writeBytes[0] = addr;
   AIR_I2C_ComboRead(TMP006_SLAVE_BASE_ADDR + id, writeBytes, 1, readBytes, 2);
@@ -141,7 +141,7 @@ void TMP006_SetConversionRate(uint8_t id, enum eTMP006Rate rate)
   uint16_t data = TMP006_ReadReg(id, TMP006_CONFIG_REG_ADDR);
 
   data &= ~TMP006_CONFIG_REG_CR;
-  data |= (UINT16)rate;
+  data |= (uint16_t)rate;
   TMP006_WriteReg(id, TMP006_CONFIG_REG_ADDR, data);
 }
 
@@ -179,7 +179,7 @@ bool TMP006_GetDataReadyStatus(uint8_t id)
 
 float TMP006_GetAmbientTemperature(uint8_t id)
 {
-  int16 tDieRaw = (int16)TMP006_ReadReg(id, TMP006_TAMBIENT_REG_ADDR);
+  int16_t tDieRaw = (int16_t)TMP006_ReadReg(id, TMP006_TAMBIENT_REG_ADDR);
 
   return (((float)(tDieRaw >> 2)) * (float)0.03125);
 }
@@ -187,7 +187,7 @@ float TMP006_GetAmbientTemperature(uint8_t id)
 float TMP006_GetObjectTemperature(uint8_t id)
 {
   float tDie = TMP006_GetAmbientTemperature(id) + (float)273.15;
-  int16 vObjRaw = (int16)TMP006_ReadReg(id, TMP006_VOBJECT_REG_ADDR);
+  int16_t vObjRaw = (int16_t)TMP006_ReadReg(id, TMP006_VOBJECT_REG_ADDR);
   float vObj = ((float)(vObjRaw)) * (float)156.25E-9;
 
   return TMP006_CalculateTemperature(&tDie, &vObj);
@@ -195,7 +195,7 @@ float TMP006_GetObjectTemperature(uint8_t id)
 
 float TMP006_GetObjectTemperatureWithTransientCorrection(uint8_t id, float *tDie)
 {
-  int16 vObjRaw = (int16)TMP006_ReadReg(id, TMP006_VOBJECT_REG_ADDR);
+  int16_t vObjRaw = (int16_t)TMP006_ReadReg(id, TMP006_VOBJECT_REG_ADDR);
   float tSlope;
   float vObjCorr;
 
