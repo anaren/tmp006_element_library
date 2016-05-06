@@ -39,7 +39,7 @@
  */
 #include "tmp006.h"
 
-#ifdef FLOATING_POINT_AVAILABLE
+#ifdef AIR_FLOATING_POINT_AVAILABLE
 #include <math.h>
 #else
 #include "../fp_math/fp_math.h"
@@ -74,7 +74,7 @@ static float TMP006_CalculateTemperature(const float *tDie, const float *vObj)
   const float c2 = 13.4;
   const float Tref = 298.15;
 
-#ifdef FLOATING_POINT_AVAILABLE
+#ifdef AIR_FLOATING_POINT_AVAILABLE
   float S = S0*((float)1.0 + a1*(*tDie - Tref) + a2*pow((*tDie - Tref),2));
   float Vos = b0 + b1*(*tDie - Tref) + b2*pow((*tDie - Tref),2);
   float fObj = (*vObj - Vos) + c2*pow((*vObj - Vos),2);
