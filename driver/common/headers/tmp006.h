@@ -84,8 +84,8 @@
  */
 enum eTMP006Mode
 {
-  PowerDown             = 0x0000,
-  ContinuousConversion  = 0x7000
+  TMP006_PowerDown             = 0x0000,
+  TMP006_ContinuousConversion  = 0x7000
 };
 
 /**
