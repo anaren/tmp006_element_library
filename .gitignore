@@ -1,2 +1,4 @@
 .project
 .pydevproject
+.cproject
+.settings/language.settings.xml
