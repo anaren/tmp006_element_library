@@ -4,6 +4,10 @@
         "Temperature",
         "Sensor"
     ],
+    "changelog": {
+        "1.0.0": "Initial release",
+        "1.1.0": "Switch to using standard types and some clean ups."
+    },
     "code": {
         "connected": " \r\n",
         "global": "",
@@ -65,5 +69,5 @@
     "name": "tmp006",
     "signature": "",
     "type": "Embedded Library",
-    "version": "1.0.0"
+    "version": "1.1.0"
 }

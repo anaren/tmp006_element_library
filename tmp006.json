@@ -11,7 +11,8 @@
 	"manufacturer":"Texas Instruments",
 	"description":"World's first single-chip digital IR MEMS temperature sensor\nEnables contactless temperature measurement in portable and consumer electronic applications\n\nDeveloped through TI's expertise in MEMS technology, the TMP006 is the first of a new class of ultra-small, low power, and low cost passive infrared temperature sensors. It has 90% lower power consumption and is more than 95% smaller than existing solutions, making contactless temperature measurement possible in completely new markets and applications.",
 	"signature": "",
-	"version": "1.0.0",
+	"version": "1.1.0",
+	"changelog":{"1.0.0":"Initial release", "1.1.0":"Switch to using standard types and some clean ups."},
 	
 	"code": {
 		"global" : "",
