@@ -39,10 +39,10 @@
  */
 #include "tmp006.h"
 
-#ifdef AIR_FLOATING_POINT_AVAILABLE
-#include <math.h>
-#else
+#ifdef AIR_FLOATING_POINT_NOT_AVAILABLE
 #include "../fp_math/fp_math.h"
+#else
+#include <math.h>
 #endif
 
 // -----------------------------------------------------------------------------
