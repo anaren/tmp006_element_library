@@ -43,6 +43,8 @@
 #include "../fp_math/fp_math.h"
 #else
 #include <math.h>
+#define fp_pow powf
+#define fp_sqrt sqrtf
 #endif
 
 // -----------------------------------------------------------------------------
