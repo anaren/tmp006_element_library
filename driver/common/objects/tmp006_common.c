@@ -76,16 +76,16 @@ static float TMP006_CalculateTemperature(const float *tDie, const float *vObj)
   const float c2 = 13.4;
   const float Tref = 298.15;
 
-#ifdef AIR_FLOATING_POINT_AVAILABLE
-  float S = S0*((float)1.0 + a1*(*tDie - Tref) + a2*pow((*tDie - Tref),2));
-  float Vos = b0 + b1*(*tDie - Tref) + b2*pow((*tDie - Tref),2);
-  float fObj = (*vObj - Vos) + c2*pow((*vObj - Vos),2);
-  float Tobj = sqrt(sqrt(pow(*tDie,4) + (fObj/S)));
-#else
+#ifdef AIR_FLOATING_POINT_NOT_AVAILABLE
   float S = S0*((float)1.0 + a1*(*tDie - Tref) + a2*fp_pow((*tDie - Tref),2));
   float Vos = b0 + b1*(*tDie - Tref) + b2*fp_pow((*tDie - Tref),2);
   float fObj = (*vObj - Vos) + c2*fp_pow((*vObj - Vos),2);
   float Tobj = fp_sqrt(fp_sqrt(fp_pow(*tDie,4) + (fObj/S)));
+#else
+  float S = S0*((float)1.0 + a1*(*tDie - Tref) + a2*pow((*tDie - Tref),2));
+  float Vos = b0 + b1*(*tDie - Tref) + b2*pow((*tDie - Tref),2);
+  float fObj = (*vObj - Vos) + c2*pow((*vObj - Vos),2);
+  float Tobj = sqrt(sqrt(pow(*tDie,4) + (fObj/S)));
 #endif
 
   return (Tobj - (float)273.15);
