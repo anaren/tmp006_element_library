@@ -31,22 +31,7 @@
 #include "../i2c/i2c.h"
 #include "tmp006_config.h"
 #include <stdint.h>
-
-//------------------------------------------------------------------------------
-/**
- *  Defines, enumerations, and structure definitions
- */
-#ifndef bool
-#define bool uint8_t
-#endif
-
-#ifndef true
-#define true 1
-#endif
-
-#ifndef false
-#define false 0
-#endif
+#include <stdbool.h>
 
 //------------------------------------------------------------------------------
 /**
